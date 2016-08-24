@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
+  AsyncStorage,
   View
 } from 'react-native';
 
@@ -12,16 +13,37 @@ class persistingData extends Component {
 
   constructor(props){
     super(props)
+    this.state = { name: '', phone: ''}
     this.persistData = this.persistData.bind(this);
     this.clearData = this.clearData.bind(this);
   }
 
   persistData(){
+    let name = this.refs.name._lastNativeText
+    let phone = this.refs.phone._lastNativeText
+    AsyncStorage.setItem('name', name).done();
+    AsyncStorage.setItem('phone', phone).done();
+    this.setState({name: name, persistedName: name, phone: phone, persistedPhone: phone })
+  }
 
+  check(){
+
+    AsyncStorage.getItem('name').then((name) => {
+        this.setState({name: name, persistedName: name})
+    })
+
+    AsyncStorage.getItem('phone').then((phone) => {
+      this.setState({phone: phone, persistedPhone: phone})
+    })
   }
 
   clearData(){
+    AsyncStorage.clear();
+    this.setState({persistedPhone: '', persistedName: ''})
+  }
 
+  componentWillMount(){
+    this.check();
   }
 
   render() {
@@ -34,11 +56,15 @@ class persistingData extends Component {
       <Text>Name</Text>
       <TextInput
        ref="name"
+       value={this.state.name}
+       onChangeText={(text) => this.setState({name: text})}
        style={styles.input} />
 
        <Text>Phone</Text>
        <TextInput
        ref="phone"
+       value={this.state.phone}
+       onChangeText={(text) => this.setState({phone: text})}
         style={styles.input} />
 
         <TouchableHighlight
@@ -54,6 +80,18 @@ class persistingData extends Component {
           underlayColor="white">
           <Text style={styles.buttonText}> CLEAR </Text>
         </TouchableHighlight>
+
+        <View>
+          <Text>STATE:</Text>
+          <Text>Name: {this.state.name}</Text>
+          <Text>Phone: {this.state.phone}</Text>
+        </View>
+
+        <View>
+          <Text>PERSISTENCE DATA:</Text>
+          <Text>Name: {this.state.persistedName}</Text>
+          <Text>Phone: {this.state.persistedPhone}</Text>
+        </View>
 
       </View>
     );
