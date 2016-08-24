@@ -1,31 +1,60 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
+  TextInput,
+  TouchableHighlight,
   View
 } from 'react-native';
 
 class persistingData extends Component {
+
+  constructor(props){
+    super(props)
+    this.persistData = this.persistData.bind(this);
+    this.clearData = this.clearData.bind(this);
+  }
+
+  persistData(){
+
+  }
+
+  clearData(){
+
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
+        <Text style={styles.title}>
+          Persisting Data
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+
+      <Text>Name</Text>
+      <TextInput
+       ref="name"
+       style={styles.input} />
+
+       <Text>Phone</Text>
+       <TextInput
+       ref="phone"
+        style={styles.input} />
+
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.persistData}
+          underlayColor="white">
+          <Text style={styles.buttonText}> SAVE </Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.clearData}
+          underlayColor="white">
+          <Text style={styles.buttonText}> CLEAR </Text>
+        </TouchableHighlight>
+
       </View>
     );
   }
@@ -38,15 +67,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  title: {
+    fontSize: 20
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  button: {
+    height: 45,
+    flexDirection: 'row',
+    backgroundColor: '#006289',
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#111',
+    alignSelf: 'center'
+  },
+  input: {
+    height: 50,
+    padding: 4,
+    marginRight: 5,
+    fontSize: 23,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 8,
+    color: 'black'
   },
 });
 
