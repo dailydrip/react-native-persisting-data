@@ -21,24 +21,24 @@ class persistingData extends Component {
   persistData(){
     let name = this.refs.name._lastNativeText
     let phone = this.refs.phone._lastNativeText
-    AsyncStorage.setItem('name', name).done();
-    AsyncStorage.setItem('phone', phone).done();
+    // AsyncStorage.setItem('name', name).done();
+    // AsyncStorage.setItem('phone', phone).done();
     this.setState({name: name, persistedName: name, phone: phone, persistedPhone: phone })
   }
 
   check(){
 
-    AsyncStorage.getItem('name').then((name) => {
-        this.setState({name: name, persistedName: name})
-    })
-
-    AsyncStorage.getItem('phone').then((phone) => {
-      this.setState({phone: phone, persistedPhone: phone})
-    })
+    // AsyncStorage.getItem('name').then((name) => {
+    //     this.setState({name: name, persistedName: name})
+    // })
+    //
+    // AsyncStorage.getItem('phone').then((phone) => {
+    //   this.setState({phone: phone, persistedPhone: phone})
+    // })
   }
 
   clearData(){
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     this.setState({persistedPhone: '', persistedName: ''})
   }
 
